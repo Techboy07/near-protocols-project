@@ -10,8 +10,22 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@near-wallet-selector/core": "^8.9.16",
+    "@near-wallet-selector/ethereum-wallets": "^8.9.16",
+    "@near-wallet-selector/meteor-wallet": "^8.9.16",
+    "@near-wallet-selector/modal-ui": "^8.9.16",
+    "@near-wallet-selector/my-near-wallet": "^8.9.16",
+    "@tailwindcss/vite": "^4.0.6",
+    "@wagmi/connectors": "^5.7.6",
+    "@wagmi/core": "^2.16.3",
+    "@web3modal/wagmi": "^5.1.11",
+    "buffer": "^6.0.3",
+    "near-api-js": "^5.0.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "tailwindcss": "^4.0.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.19.0",
