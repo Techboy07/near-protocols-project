@@ -5,7 +5,7 @@ function Button({ login, handleClick }) {
       className="bg-sky-500 px-5 text-white text-2xl py-2 ms-auto block"
       onClick={handleClick}
     >
-      {login ? "Login" : "Signup"}
+      {login ? "connect" : "disconnect"}
     </button>
   );
 }
