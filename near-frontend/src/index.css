@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
-body{
-    @apply bg-slate-700;
+@theme {
+  --color-accent: #5855ff;
+  /* --my-bg:  */
+}
+
+body {
+  @apply bg-[url("/backgrounds/splash.png")] bg-contain bg-black;
 }
