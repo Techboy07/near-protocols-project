@@ -1,11 +1,17 @@
 // eslint-disable-next-line react/prop-types
-function Button({ login, handleClick }) {
+function Button({ handleClick, text }) {
   return (
     <button
-      className="bg-sky-500 px-5 text-white text-2xl py-2 ms-auto block"
+      className="bg-black border border-accent rounded-md px-5 text-white  py-2 ms-auto flex items-center gap-2 text-lg"
       onClick={handleClick}
     >
-      {login ? "connect" : "disconnect"}
+      {text}
+
+      <img
+        className="w-7"
+        src={"/splash-icons/uil_wallet.png"}
+        alt="wallet-image"
+      />
     </button>
   );
 }

@@ -84,11 +84,7 @@ const Login = () => {
           <Form account={account} key={account.accountId} signedIn={signedIn} />
         );
       })} */}
-      <PathButton
-        text="Manage Bio"
-        icon="/splash-icons/BioThin.png"
-        func={() => {}}
-      />
+
       <TabNavigation />
     </div>
   );
