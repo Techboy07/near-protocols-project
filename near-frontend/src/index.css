@@ -2,9 +2,10 @@
 
 @theme {
   --color-accent: #5855ff;
-  /* --my-bg:  */
+  --color-see-thru-black: rgba(0, 0, 0, 0.7)
+    /* --my-bg:  */
 }
 
 body {
-  @apply bg-[url("/backgrounds/splash.png")] bg-contain bg-black;
+  @apply bg-[url("/backgrounds/splash.png")] bg-contain;
 }

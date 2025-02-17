@@ -25,7 +25,6 @@ async function getSelector() {
 
   return selector;
 }
-
 export const selector = getSelector();
 
 async function getModal() {
