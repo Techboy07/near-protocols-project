@@ -7,5 +7,5 @@
 }
 
 body {
-  @apply bg-[url("/backgrounds/splash.png")] bg-contain;
+  @apply bg-[url("/backgrounds/splash.png")] bg-contain bg-see-thru-black;
 }
