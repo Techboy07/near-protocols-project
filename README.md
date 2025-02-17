@@ -1,3 +1,5 @@
+# Welcome to near-protocol-project
+
 to run the front end navigate to the frontend directory 
 
 `cd near-frontend/`
