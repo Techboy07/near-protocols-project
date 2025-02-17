@@ -10,13 +10,13 @@ function Header() {
   const setAccountTrayOpen = useStore((state) => state.setAccountTrayOpen);
 
   return (
-    <div
-      className="flex justify-between items-center mb-8"
-      onClick={() => {
-        setAccountTrayOpen(true);
-      }}
-    >
-      <div className="text-white flex gap-2">
+    <div className="flex justify-between items-center mb-8">
+      <div
+        className="text-white flex gap-2"
+        onClick={() => {
+          setAccountTrayOpen(true);
+        }}
+      >
         <img className="w-10" src={profile} alt="wallet-image" />
         <div>
           <p>
