@@ -1,5 +1,5 @@
-import Header from "../components/Header";
 import PathButton from "../components/PathButton";
+import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import connectToNear, {
@@ -15,7 +15,6 @@ const Home = () => {
   const setAuthState = useStore((state) => state.setAuthState);
   const activeAccount = useStore((state) => state.activeAccount);
   const setActiveAccount = useStore((state) => state.setActiveAccount);
-  const accounts = useStore((state) => state.accounts);
   const setAccounts = useStore((state) => state.setAccounts);
   const accountTrayOpen = useStore((state) => state.accountTrayOpen);
   const setBalance = useStore((state) => state.setBalance);
@@ -78,36 +77,27 @@ const Home = () => {
       // console.log(authState);
     });
   }, [authState, activeAccount, accountTrayOpen]);
+  const navigate = useNavigate();
 
   const paths = useState([
-    { text: "Manage Bio", icon: "/splash-icons/BioThin.png" },
-    { text: "Manage DMs", icon: "/splash-icons/Vector(1).svg" },
-    { text: "Manage Tweets", icon: "/splash-icons/Vector.svg" },
+    { text: "Manage Bio", icon: "/splash-icons/BioThin.png", link: "bio" },
+    {
+      text: "Manage DMs",
+      icon: "/splash-icons/Vector(1).svg",
+      link: "messages",
+    },
+    { text: "Manage Tweets", icon: "/splash-icons/Vector.svg", link: "posts" },
     {
       text: "Manage Posts",
       icon: "/splash-icons/Vector(2).svg",
+      link: "posts",
     },
-    { text: "Manage Spaces", icon: "/splash-icons/Frame3.svg" },
+    { text: "Manage Spaces", icon: "/splash-icons/Frame3.svg", link: "spaces" },
   ])[0];
   return (
-    <div className="text-white px-5 pt-10">
-      {accountTrayOpen ? (
-        <AccountTray accounts={accounts} func={setActiveAccount} />
-      ) : null}
-      <Header />
-      {paths.map(({ text, icon }, idx) => (
-        <PathButton text={text} icon={icon} func={() => {}} key={idx} />
-      ))}
-      {!authState ? (
-        <Button
-          text={"Connect"}
-          handleClick={async () => {
-            const newModal = await modal;
-            newModal.show();
-          }}
-        />
-      ) : (
-        <>
+    <div>
+      <div className="flex mb-8 items-center justify-between">
+        {!authState ? (
           <Button
             text={"Connect"}
             handleClick={async () => {
@@ -115,43 +105,31 @@ const Home = () => {
               newModal.show();
             }}
           />
-          <Button text={"Disconnect"} handleClick={disconnect} />
-        </>
-      )}
+        ) : (
+          <>
+            <Button
+              text={"Connect"}
+              handleClick={async () => {
+                const newModal = await modal;
+                newModal.show();
+              }}
+            />
+
+            <Button text={"Disconnect"} handleClick={disconnect} />
+          </>
+        )}
+      </div>
+
+      {paths.map(({ text, icon, link }, idx) => (
+        <PathButton
+          text={text}
+          icon={icon}
+          func={() => navigate(`/main/${link}`)}
+          key={idx}
+        />
+      ))}
     </div>
   );
 };
-
-// eslint-disable-next-line react/prop-types
-function AccountTray({ accounts, func }) {
-  const setAccountTrayOpen = useStore((state) => state.setAccountTrayOpen);
-
-  return (
-    <div className="fixed left-0 top-0 w-full">
-      <div
-        className="w-full min-h-screen backdrop-blur-3xl px-5 py-20 max-w-xl mx-auto"
-        onClick={() => setAccountTrayOpen(false)}
-      >
-        <p className="text-white text-center font-bold text-2xl mb-10">
-          Select active account
-        </p>
-        {
-          // eslint-disable-next-line react/prop-types
-          accounts.map((account) => {
-            return (
-              <button
-                className="bg-accent  rounded-md text-white text-2xl px-5 py-3 w-full mb-8 text-center "
-                onClick={() => func(account)}
-                key={account.accountId}
-              >
-                {account.accountId}
-              </button>
-            );
-          })
-        }
-      </div>
-    </div>
-  );
-}
 
 export default Home;
