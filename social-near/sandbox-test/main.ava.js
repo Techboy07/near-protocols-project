@@ -57,105 +57,103 @@ describe("HelloNear Contract", () => {
   let contract;
 
   beforeEach(() => {
-    contract = new TokenDeduction(); // Initialize a new instance of the contract
-  });
+    contract = new TokenDeduction(); 
 
   it("should approve a spender to deduct tokens", () => {
-    // Set up the environment with Alice as the predecessor
+    
     setupEnvironment({
       predecessor: "alice.near",
       signer: "alice.near",
       balance: "1000",
     });
 
-    // Alice approves Bob to spend 100 tokens
+    
     contract.approve({ spender: "bob.near", amount: 100 });
 
-    // Check the allowance
+    
     const allowance = contract.get_allowance({
       owner: "alice.near",
       spender: "bob.near",
     });
-    expect(allowance).toBe(100); // Expect Bob to have an allowance of 100 tokens
+    expect(allowance).toBe(100);
   });
 
   it("should log a transfer on behalf of the owner", () => {
-    // Set up the environment with Alice as the predecessor
+   
     setupEnvironment({
       predecessor: "alice.near",
       signer: "alice.near",
       balance: "1000",
     });
 
-    // Alice approves Bob to spend 100 tokens
+    
     contract.approve({ spender: "bob.near", amount: 100 });
 
-    // Set up the environment with Bob as the predecessor
+    
     setupEnvironment({
       predecessor: "bob.near",
       signer: "bob.near",
       balance: "1000",
     });
 
-    // Bob transfers 50 tokens from Alice to Charlie
+   
     contract.transfer_from({
       owner: "alice.near",
       recipient: "charlie.near",
       amount: 50,
     });
 
-    // Check the remaining allowance
+    
     const allowance = contract.get_allowance({
       owner: "alice.near",
       spender: "bob.near",
     });
-    expect(allowance).toBe(50); // Expect Bob to have 50 tokens remaining in allowance
+    expect(allowance).toBe(50);
   });
 
   it("should fail if the spender does not have enough allowance", () => {
-    // Set up the environment with Alice as the predecessor
+   
     setupEnvironment({
       predecessor: "alice.near",
       signer: "alice.near",
       balance: "1000",
     });
 
-    // Alice approves Bob to spend 100 tokens
+   
     contract.approve({ spender: "bob.near", amount: 100 });
 
-    // Set up the environment with Bob as the predecessor
+  
     setupEnvironment({
       predecessor: "bob.near",
       signer: "bob.near",
       balance: "1000",
     });
 
-    // Attempt to transfer more than the allowance
+   
     expect(() => {
       contract.transfer_from({
         owner: "alice.near",
         recipient: "charlie.near",
-        amount: 150, // Attempt to transfer 150 tokens (more than the allowance)
+        amount: 150,
       });
-    }).toThrow("Not enough allowance"); // Expect the transaction to fail
+    }).toThrow("Not enough allowance");
   });
 
   it("should return 0 allowance if no approval exists", () => {
-    // Set up the environment with Alice as the predecessor
+    
     setupEnvironment({
       predecessor: "alice.near",
       signer: "alice.near",
       balance: "1000",
     });
 
-    // Check the allowance for a non-existent approval
+   
     const allowance = contract.get_allowance({
       owner: "alice.near",
       spender: "bob.near",
     });
-    expect(allowance).toBe(0); // Expect the allowance to be 0
+    expect(allowance).toBe(0);
   });
 });
-
-// the test code for the approval and transfer funds
+});
 
