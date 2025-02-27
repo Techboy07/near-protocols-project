@@ -2427,7 +2427,7 @@ near-sandbox@^0.1.1:
     got "^11.8.6"
     tar "^6.2.0"
 
-near-sdk-js@2.0.0:
+near-sdk-js@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/near-sdk-js/-/near-sdk-js-2.0.0.tgz"
   integrity sha512-mE+FAUI5uXJafdtWjHcar8ow7EAUcAK0WH+kuaxbN8KitbuCMVdY4b1GQT48p3qhg7EUYbFy6x+7+Sf6vNitMw==

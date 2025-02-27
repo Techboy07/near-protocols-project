@@ -33,7 +33,7 @@ test.afterEach.always(async (t) => {
 
 test('returns the default greeting', async (t) => {
   const { contract } = t.context.accounts;
-  const greeting = await contract.view('get_greeting', {});
+  const greeting = await contract.view('get_greeting', {});hgdhghjghg
   t.is(greeting, 'Hello');
 });
 
