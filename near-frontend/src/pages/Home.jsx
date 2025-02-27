@@ -44,6 +44,7 @@ const Home = () => {
           const userAccount = await nearConnection.account(
             activeAccount.accountId
           );
+
           const acctBalance = await userAccount.getAccountBalance();
           const nearBal = Number(convertYoctoNear(acctBalance.available));
           setBalance(nearBal);
@@ -93,6 +94,7 @@ const Home = () => {
       link: "posts",
     },
     { text: "Manage Spaces", icon: "/splash-icons/Frame3.svg", link: "spaces" },
+    { text: "Manage tests", icon: "/splash-icons/Frame3.svg", link: "test" },
   ])[0];
   return (
     <div>

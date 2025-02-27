@@ -7,6 +7,7 @@ import Bio from "./pages/Bio";
 import Messages from "./pages/Messages";
 import Posts from "./pages/Posts";
 import Spaces from "./pages/Spaces";
+import Test from "./pages/Test";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="messages" element={<Messages />} />
           <Route path="posts" element={<Posts />} />
           <Route path="spaces" element={<Spaces />} />
+          <Route path="test" element={<Test />} />
         </Route>
         <Route path="/" element={<Splash />} />
       </Routes>
