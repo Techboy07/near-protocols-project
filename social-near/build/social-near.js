@@ -1288,8 +1288,8 @@ ListCache.prototype.has = listCacheHas;
 ListCache.prototype.set = listCacheSet;
 
 /* Built-in method references that are verified to be native. */
-var Map = getNative(root$1, 'Map');
-var Map$1 = Map;
+var Map$1 = getNative(root$1, 'Map');
+var Map$2 = Map$1;
 
 /**
  * Removes all key-value entries from the map.
@@ -1302,7 +1302,7 @@ function mapCacheClear() {
   this.size = 0;
   this.__data__ = {
     'hash': new Hash(),
-    'map': new (Map$1 || ListCache)(),
+    'map': new (Map$2 || ListCache)(),
     'string': new Hash()
   };
 }
@@ -1508,7 +1508,7 @@ function stackSet(key, value) {
   var data = this.__data__;
   if (data instanceof ListCache) {
     var pairs = data.__data__;
-    if (!Map$1 || pairs.length < LARGE_ARRAY_SIZE - 1) {
+    if (!Map$2 || pairs.length < LARGE_ARRAY_SIZE - 1) {
       pairs.push([key, value]);
       this.size = ++data.size;
       return this;
@@ -1773,7 +1773,7 @@ var dataViewTag$2 = '[object DataView]';
 
 /** Used to detect maps, sets, and weakmaps. */
 var dataViewCtorString = toSource(DataView$1),
-  mapCtorString = toSource(Map$1),
+  mapCtorString = toSource(Map$2),
   promiseCtorString = toSource(Promise$2),
   setCtorString = toSource(Set$1),
   weakMapCtorString = toSource(WeakMap$1);
@@ -1788,7 +1788,7 @@ var dataViewCtorString = toSource(DataView$1),
 var getTag = baseGetTag;
 
 // Fallback for data views, maps, sets, and weak maps in IE 11 and promises in Node.js < 6.
-if (DataView$1 && getTag(new DataView$1(new ArrayBuffer(1))) != dataViewTag$2 || Map$1 && getTag(new Map$1()) != mapTag$3 || Promise$2 && getTag(Promise$2.resolve()) != promiseTag || Set$1 && getTag(new Set$1()) != setTag$3 || WeakMap$1 && getTag(new WeakMap$1()) != weakMapTag$1) {
+if (DataView$1 && getTag(new DataView$1(new ArrayBuffer(1))) != dataViewTag$2 || Map$2 && getTag(new Map$2()) != mapTag$3 || Promise$2 && getTag(Promise$2.resolve()) != promiseTag || Set$1 && getTag(new Set$1()) != setTag$3 || WeakMap$1 && getTag(new WeakMap$1()) != weakMapTag$1) {
   getTag = function (value) {
     var result = baseGetTag(value),
       Ctor = result == objectTag$1 ? value.constructor : undefined,
@@ -3191,8 +3191,8 @@ class NearPromise {
   }
 }
 
-var _dec, _dec2, _dec3, _dec4, _class, _class2;
-let HelloNear = (_dec = NearBindgen({}), _dec2 = view(), _dec3 = call({}), _dec4 = call({}), _dec(_class = (_class2 = class HelloNear {
+var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _class2;
+let HelloNear = (_dec = NearBindgen({}), _dec2 = view(), _dec3 = call({}), _dec4 = call({}), _dec5 = call({}), _dec6 = call({}), _dec7 = view(), _dec(_class = (_class2 = class HelloNear {
   static schema = {
     greeting: 'string'
   };
@@ -3212,7 +3212,81 @@ let HelloNear = (_dec = NearBindgen({}), _dec2 = view(), _dec3 = call({}), _dec4
   }) {
     return NearPromise.new(to).transfer(amount);
   }
-}, _applyDecoratedDescriptor(_class2.prototype, "get_greeting", [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, "get_greeting"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "set_greeting", [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, "set_greeting"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "transfer", [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, "transfer"), _class2.prototype), _class2)) || _class);
+  constructor() {
+    this.allowances = new Map();
+  }
+  approve({
+    spender,
+    amount
+  }) {
+    const owner = predecessorAccountId();
+    const key = `${owner}:${spender}`;
+    this.allowances.set(key, amount);
+    log(`Approved ${spender} to spend ${amount} tokens on behalf of ${owner}`);
+  }
+  transfer_from({
+    owner,
+    recipient,
+    amount
+  }) {
+    const spender = predecessorAccountId();
+    const key = `${owner}:${spender}`;
+    const allowance = this.allowances.get(key) || 0;
+    if (allowance < amount) {
+      throw new Error("Not enough allowance");
+    }
+    this.allowances.set(key, allowance - amount);
+    log(`Transferred ${amount} tokens from ${owner} to ${recipient}`);
+  }
+  get_allowance({
+    owner,
+    spender
+  }) {
+    const key = `${owner}:${spender}`;
+    return this.allowances.get(key) || 0;
+  }
+}, _applyDecoratedDescriptor(_class2.prototype, "get_greeting", [_dec2], Object.getOwnPropertyDescriptor(_class2.prototype, "get_greeting"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "set_greeting", [_dec3], Object.getOwnPropertyDescriptor(_class2.prototype, "set_greeting"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "transfer", [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, "transfer"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "approve", [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, "approve"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "transfer_from", [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, "transfer_from"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "get_allowance", [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, "get_allowance"), _class2.prototype), _class2)) || _class);
+function get_allowance() {
+  const _state = HelloNear._getState();
+  if (!_state && HelloNear._requireInit()) {
+    throw new Error("Contract must be initialized");
+  }
+  const _contract = HelloNear._create();
+  if (_state) {
+    HelloNear._reconstruct(_contract, _state);
+  }
+  const _args = HelloNear._getArgs();
+  const _result = _contract.get_allowance(_args);
+  if (_result !== undefined) if (_result && _result.constructor && _result.constructor.name === "NearPromise") _result.onReturn();else env.value_return(HelloNear._serialize(_result, true));
+}
+function transfer_from() {
+  const _state = HelloNear._getState();
+  if (!_state && HelloNear._requireInit()) {
+    throw new Error("Contract must be initialized");
+  }
+  const _contract = HelloNear._create();
+  if (_state) {
+    HelloNear._reconstruct(_contract, _state);
+  }
+  const _args = HelloNear._getArgs();
+  const _result = _contract.transfer_from(_args);
+  HelloNear._saveToStorage(_contract);
+  if (_result !== undefined) if (_result && _result.constructor && _result.constructor.name === "NearPromise") _result.onReturn();else env.value_return(HelloNear._serialize(_result, true));
+}
+function approve() {
+  const _state = HelloNear._getState();
+  if (!_state && HelloNear._requireInit()) {
+    throw new Error("Contract must be initialized");
+  }
+  const _contract = HelloNear._create();
+  if (_state) {
+    HelloNear._reconstruct(_contract, _state);
+  }
+  const _args = HelloNear._getArgs();
+  const _result = _contract.approve(_args);
+  HelloNear._saveToStorage(_contract);
+  if (_result !== undefined) if (_result && _result.constructor && _result.constructor.name === "NearPromise") _result.onReturn();else env.value_return(HelloNear._serialize(_result, true));
+}
 function transfer() {
   const _state = HelloNear._getState();
   if (!_state && HelloNear._requireInit()) {
@@ -3255,5 +3329,5 @@ function get_greeting() {
   if (_result !== undefined) if (_result && _result.constructor && _result.constructor.name === "NearPromise") _result.onReturn();else env.value_return(HelloNear._serialize(_result, true));
 }
 
-export { get_greeting, set_greeting, transfer };
+export { approve, get_allowance, get_greeting, set_greeting, transfer, transfer_from };
 //# sourceMappingURL=social-near.js.map

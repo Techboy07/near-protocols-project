@@ -1,3 +1,6 @@
+DEFINE_NEAR_METHOD(approve)
+DEFINE_NEAR_METHOD(get_allowance)
 DEFINE_NEAR_METHOD(get_greeting)
 DEFINE_NEAR_METHOD(set_greeting)
 DEFINE_NEAR_METHOD(transfer)
+DEFINE_NEAR_METHOD(transfer_from)
