@@ -34,14 +34,12 @@ class HelloNear {
 
   
   @call({})
-  approve({ spender, amount }) {
+  approve({ spender, amount } : { spender: AccountId, amount: bigint }) {
     const owner = near.predecessorAccountId(); 
     const key = `${owner}:${spender}`;
 
     
-    this.allowances.set(key, amount);
-
-   
+    near.storageWrite(key, amount.toString()); // Store as string
     near.log(`Approved ${spender} to spend ${amount} tokens on behalf of ${owner}`);
   }
 

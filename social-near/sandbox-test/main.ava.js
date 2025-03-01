@@ -173,10 +173,7 @@ let worker, root, contract;
 test.before(async () => {
   worker = await Worker.init();
   root = worker.rootAccount;
-  contract = await root.createAndDeploy(
-    'hello-near',
-    './build/hello-near.wasm'
-  );
+  contract = contract = await root.devDeploy('./build/social-near.wasm');
 });
 
 test.after.always(async () => {
