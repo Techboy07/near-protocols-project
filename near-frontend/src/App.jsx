@@ -9,6 +9,9 @@ import Posts from "./pages/Posts";
 import Spaces from "./pages/Spaces";
 import Test from "./pages/Test";
 
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "./wallets/appKit";
+
 function App() {
   return (
     <div className="mx-auto max-w-xl bg-black pb-20 min-h-screen">
@@ -27,4 +30,12 @@ function App() {
   );
 }
 
-export default App;
+function AppWrapper() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  );
+}
+
+export default AppWrapper;
