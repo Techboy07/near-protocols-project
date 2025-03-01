@@ -2,6 +2,7 @@ import { setupWalletSelector } from "@near-wallet-selector/core";
 import { setupModal } from "@near-wallet-selector/modal-ui";
 import { setupMyNearWallet } from "@near-wallet-selector/my-near-wallet";
 import { setupMeteorWallet } from "@near-wallet-selector/meteor-wallet";
+import { setupHotWallet } from "@near-wallet-selector/hot-wallet";
 
 import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
 
@@ -13,6 +14,7 @@ async function getSelector() {
   const selector = await setupWalletSelector({
     network: "testnet",
     modules: [
+      setupHotWallet(),
       setupMyNearWallet(),
       setupMeteorWallet(),
       setupEthereumWallets({
