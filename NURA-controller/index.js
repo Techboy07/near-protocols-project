@@ -56,7 +56,7 @@ app.post("/", (req,res,next)=>{
       cwd: targetDirectory, // Set the current working directory
     });
 
-    res.json({serverProcess, serverProcess1, serverProcess2, serverProcess3, serverProcess4});
+    res.json({serverProcess, serverProcess1, serverProcess2, serverProcess3, serverProcess4, serverProcess5});
   }
 });
 
