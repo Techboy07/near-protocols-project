@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 /* eslint-disable react/prop-types */
 export function ManagementPanel({ children }) {
-  return <div className="bg-white text-black p-10 rounded-3xl">{children}</div>;
+  return (
+    <div className="bg-white text-black p-10 rounded-3xl relative">
+      {children}
+    </div>
+  );
 }
 
 export function Radio({ value, func, selected }) {
@@ -57,12 +61,18 @@ export function CheckBox({ value, func, selected }) {
   );
 }
 
-export function Input({ value }) {
+export function Input({ value, id, handleChange }) {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [value]);
   return (
     <input
+      ref={inputRef}
       type="text"
-      className="border-panel-border border-b w-full outline-0 text-panel-border py-1"
+      className="border-panel-border border-b w-full outline-0 text-panel-border py-1 mb-2"
       value={value}
+      onChange={(e) => handleChange(id, e.target.value)}
     />
   );
 }

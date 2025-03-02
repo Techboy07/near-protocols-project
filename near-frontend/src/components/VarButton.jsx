@@ -3,12 +3,13 @@ function VarButton({ type, text, handleClick, icon, small }) {
   function changeStyle(type) {
     switch (type) {
       case "outlined":
-        return "border-accent border-2 text-white ";
+        return "border-accent border-2 text-white cursor-pointer ";
       case "filled":
-        return "bg-white border-accent border-2 text-accent";
-
+        return "bg-white border-accent border-2 text-accent cursor-pointer";
+      case "disabled":
+        return "bg-gray-300 text-white";
       default:
-        return "bg-accent";
+        return "bg-accent text-white cursor-pointer";
     }
   }
 
@@ -23,9 +24,10 @@ function VarButton({ type, text, handleClick, icon, small }) {
 
   return (
     <button
+      disabled={type == "disabled"}
       className={`${changeStyle(type)} ${changeSize(
         small
-      )} cursor-pointer w-full rounded-lg flex items-center justify-center gap-2`}
+      )}  w-full rounded-lg flex items-center justify-center gap-2`}
       onClick={handleClick}
     >
       {text}

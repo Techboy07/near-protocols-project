@@ -13,9 +13,9 @@ import { setupWelldoneWallet } from "@near-wallet-selector/welldone-wallet";
 
 import { setupEthereumWallets } from "@near-wallet-selector/ethereum-wallets";
 
-// import { wagmiConfig, web3Modal } from "./web3modal";
+import { wagmiConfig, web3Modal } from "./web3modal";
 
-import { wagmiAdapter, appKit } from "./appKit";
+// import { wagmiAdapter, appKit } from "./appKit";
 
 import "@near-wallet-selector/modal-ui/styles.css";
 
@@ -33,10 +33,10 @@ async function getSelector() {
       setupMyNearWallet(),
       setupMeteorWallet(),
       setupEthereumWallets({
-        // wagmiConfig,
-        // web3Modal,
-        appKit,
-        wagmiConfig: wagmiAdapter.wagmiConfig,
+        wagmiConfig,
+        web3Modal,
+        // appKit,
+        // wagmiConfig: wagmiAdapter.wagmiConfig,
         alwaysOnboardDuringSignIn: true,
       }),
     ],
