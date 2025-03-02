@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const { spawn } = require("child_process");
@@ -11,7 +12,11 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.post("/", async (req, res) => {
+app.use(cors());
+app.post("/", (req,res,next)=>{
+  console.log(req.url,req.body)
+  next()
+},async (req, res) => {
   const params = req.body.params;
   const newData = updateData(data, params);
   //   check if there's a running process and kill it then restart
@@ -31,9 +36,27 @@ app.post("/", async (req, res) => {
       cwd: targetDirectory, // Set the current working directory
     });
 
+    const serverProcess2 = spawn("pnpm", ["install", "--no-frozen-lockfile"], {
+      stdio: "inherit",
+      cwd: targetDirectory, // Set the current working directory
+    });
 
+    const serverProcess3 = spawn("pnpm", ["build"], {
+      stdio: "inherit",
+      cwd: targetDirectory, // Set the current working directory
+    });
 
-    res.json({serverProcess, serverProcess1});
+    const serverProcess4 = spawn("cp", [".env.example", ".env"], {
+      stdio: "inherit",
+      cwd: targetDirectory, // Set the current working directory
+    });
+
+    const serverProcess5 = spawn("pnpm", ["start", `"--character="characters/c3po.character.json""`], {
+      stdio: "inherit",
+      cwd: targetDirectory, // Set the current working directory
+    });
+
+    res.json({serverProcess, serverProcess1, serverProcess2, serverProcess3, serverProcess4});
   }
 });
 
