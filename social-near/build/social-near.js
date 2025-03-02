@@ -2447,6 +2447,15 @@ function storageWriteRaw(key, value) {
   return env.storage_write(key, value, EVICTED_REGISTER) === 1n;
 }
 /**
+ * Writes the provided utf-8 string to NEAR storage under the provided key.
+ *
+ * @param key - The utf-8 string key under which to store the value.
+ * @param value - The utf-8 string value to store.
+ */
+function storageWrite(key, value) {
+  return storageWriteRaw(encode(key), encode(value));
+}
+/**
  * Returns the arguments passed to the current smart contract call.
  */
 function inputRaw() {
@@ -3221,7 +3230,7 @@ let HelloNear = (_dec = NearBindgen({}), _dec2 = view(), _dec3 = call({}), _dec4
   }) {
     const owner = predecessorAccountId();
     const key = `${owner}:${spender}`;
-    this.allowances.set(key, amount);
+    storageWrite(key, amount.toString()); // Store as string
     log(`Approved ${spender} to spend ${amount} tokens on behalf of ${owner}`);
   }
   transfer_from({
