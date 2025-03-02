@@ -14,18 +14,26 @@ app.use(bodyParser.json());
 app.post("/", async (req, res) => {
   const params = req.body.params;
   const newData = updateData(data, params);
-  //   check if there's a running process and kill it the restart
-  const newFilePath = await writeDataToFile(newData, "char.json");
+  //   check if there's a running process and kill it then restart
+  const newFilePath = await writeDataToFile(newData, "char.json", path.join(__dirname, "NURA/characters"))
 
   if (newFilePath) {
-    const targetDirectory = path.join(__dirname, "Desert-vite"); // set the  target  directory
+    const targetDirectory = path.join(__dirname, "NURA"); // set the  target  directory
 
-    const serverProcess = spawn("npm", ["run", "dev"], {
+    
+    const serverProcess1 = spawn("nvm", ["install", "23.3.0"], {
+      stdio: "inherit",
+      cwd: targetDirectory, // Set the current working directory
+    });
+    
+    const serverProcess = spawn("npm", ["install", "-g", "pnpm@latest-10"], {
       stdio: "inherit",
       cwd: targetDirectory, // Set the current working directory
     });
 
-    res.json(serverProcess);
+
+
+    res.json({serverProcess, serverProcess1});
   }
 });
 

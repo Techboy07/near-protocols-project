@@ -1,5 +1,5 @@
 {
-  "name": "user1",
+  "name": "sukuna",
   "clients": [],
   "modelProvider": "livepeer",
   "settings": {
@@ -98,6 +98,5 @@
     "gptModel": "gpt-3.5-turbo",
     "systemPrompt": "You are a helpful AI co-host assistant.",
     "speakerMaxDurationMs": 240000
-  },
-  "sukuna": "sukus"
+  }
 }
