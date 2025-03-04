@@ -1,4 +1,4 @@
-# Welcome to near-protocol-project
+# Welcome to NURA (Near Unified Realtime Agent)
 to run the backend
 clone this repo 
 
