@@ -26,7 +26,7 @@ add the following to the .env file
 
 `VITE__BACKEND_URL = <url to your running NURA-controller>` 
 
-`VITE__PROJECT_ID = reown Appkit project id` for walletconnect integration
+`VITE__PROJECT_ID = <reown Appkit project id>` for walletconnect integration
 
 Get your projectId at `https://cloud.reown.com`
 
