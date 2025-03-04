@@ -8,11 +8,16 @@ rename eliza to NURA `NURA-controller`
 
 move NURA into 
 
+navigate to the NURA-controller directory 
+
 `cd NURA-controller`
 
 `node index.js or npm run start`
 
-to run the front end navigate to the frontend directory 
+# to run the front end
+
+navigate to the frontend directory 
+
 `cd near-frontend/`
 
 create .env file
